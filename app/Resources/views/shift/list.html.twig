@@ -1,0 +1,21 @@
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Дата</th>
+        <th>Рабочий</th>
+        <th>Продукт</th>
+        <th>Количество</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for shift in shifts %}
+    <tr>
+        <td><a href="{{ path('shift_show', { 'id': shift.id }) }}">{{ shift.id }}</a></td>
+        <td>{% if shift.date %}{{ shift.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+        <td>{{ shift.employees.name}} {{shift.employees.surname}}</td>
+        <td>{{ shift.products.name }}</td>
+        <td>{{ shift.quantity }}</td>
+    {% endfor %}
+    </tbody>
+</table>

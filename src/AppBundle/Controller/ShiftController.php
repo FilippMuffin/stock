@@ -35,6 +35,44 @@ class ShiftController extends Controller
     }
 
     /**
+     * Lists all shifts entities.
+     *
+     * @Route("/print", name="shift_print")
+     * @Method("GET")
+     * @Security("has_role('ADMIN')")
+     */
+    public function printAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $shifts = $em->getRepository(Shift::class)->findAll();
+        $pdf = $this
+            ->get("white_october.tcpdf")
+            ->create('P', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $format = '250x130';
+        $filename = "Shift".$format;
+        $pdf->AddPage('L', explode('x', $format));
+        $pdf->SetFont('dejavusans', '', 14, '', true);
+        $html = $this->renderView('shift/list.html.twig', array(
+            'shifts' => $shifts,
+        ));
+        $pdf->writeHTMLCell(
+            $w = 0,
+            $h = 0,
+            $x = '',
+            $y = '',
+            $html,
+            $border = 0,
+            $ln = 1,
+            $fill = 0,
+            $reseth = true,
+            $align = '',
+            $autopadding = true
+        );
+        return $pdf->Output($filename . '.pdf', 'I');
+    }
+
+
+    /**
      * Creates a new shift entity.
      *
      * @Route("/new", name="shift_new")
