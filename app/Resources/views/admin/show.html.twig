@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Администратор</h1>
+
+    <table bordercolor="blue" border="1">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ admin.id }}</td>
+        </tr>
+        <tr>
+            <th>Имя</th>
+            <td>{{ admin.name }}</td>
+        </tr>
+        <tr>
+            <th>Фамилия</th>
+            <td>{{ admin.surname }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ admin.email }}</td>
+        </tr>
+        <tr>
+            <th>Пароль</th>
+            <td>{{ admin.password }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_index') }}">Назад к списку</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_edit', { 'id': admin.id }) }}">Обновить</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_delete', { 'id': admin.id }) }}">Удалить</a>
+        </li>
+    </ul>
+{% endblock %}

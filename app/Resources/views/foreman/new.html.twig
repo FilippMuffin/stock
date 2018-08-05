@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Создать прораба</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="submit" value="Создать" />
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('foreman_index') }}">Назад к списку</a>
+        </li>
+    </ul>
+{% endblock %}

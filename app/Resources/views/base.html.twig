@@ -1,5 +1,35 @@
 <!DOCTYPE html>
 <html>
+
+{% block header %}
+    <div id="wrapper">
+        <a>Здравствуй,
+            {% if app.user %}{{ app.user.name }} {{ app.user.surname }}:
+                {% for val in app.user.getRoles() %}
+                {{ val }}
+            {% endfor %}
+                <a href="{{ path('logout') }}">(выход)</a>
+            {% else %} <a href="{{ path('login') }}">ВХОД</a>
+            {% endif %}</a>
+        <h1>МЕНЮ</h1>
+        <a href="{{ path('admin_index') }}">Администраторы</a><br>
+        <a href="{{ path('foreman_index') }}">Прорабы</a><br>
+        <a href="{{ path('employee_index') }}">Сотрудники</a><br>
+        <a href="{{ path('product_index') }}">Продукты</a><br>
+        <a href="{{ path('shift_index') }}">Смета</a><br>
+    </div>
+{% endblock %}
+
+{% block stylesheet %}
+    <style>
+        #wrapper {
+            border: 3px solid #022866;
+            border-radius: 0px 0px 0px 0px;
+            text-align: center;
+            line-height: 1.5;
+        }
+    </style>
+{% endblock %}
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome!{% endblock %}</title>

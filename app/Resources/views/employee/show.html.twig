@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Сотрудник</h1>
+
+    <table bordercolor="blue" border="1">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ employee.id }}</td>
+        </tr>
+        <tr>
+            <th>Имя</th>
+            <td>{{ employee.name }}</td>
+        </tr>
+        <tr>
+            <th>Фамилия</th>
+            <td>{{ employee.surname }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ employee.email }}</td>
+        </tr>
+        <tr>
+            <th>Пароль</th>
+            <td>{{ employee.password }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('employee_index') }}">Назад к списку</a>
+        </li>
+        <li>
+            <a href="{{ path('employee_edit', { 'id': employee.id }) }}">Обновить</a>
+        </li>
+        <li>
+            <a href="{{ path('employee_delete', { 'id': employee.id }) }}">Удалить</a>
+        </li>
+    </ul>
+{% endblock %}

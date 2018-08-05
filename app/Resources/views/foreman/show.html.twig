@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Прораб</h1>
+
+    <table bordercolor="blue" border="1">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ foreman.id }}</td>
+        </tr>
+        <tr>
+            <th>Имя</th>
+            <td>{{ foreman.name }}</td>
+        </tr>
+        <tr>
+            <th>Фамилия</th>
+            <td>{{ foreman.surname }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ foreman.email }}</td>
+        </tr>
+        <tr>
+            <th>Пароль</th>
+            <td>{{ foreman.password }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('foreman_index') }}">Назад к списку</a>
+        </li>
+        <li>
+            <a href="{{ path('foreman_edit', { 'id': foreman.id }) }}">Обновить</a>
+        </li>
+        <li>
+            <a href="{{ path('foreman_delete', { 'id': foreman.id }) }}">Удалить</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Смета</h1>
+
+    <table bordercolor="blue" border="1">
+        <thead align="center">
+        <tr>
+            <th>Id</th>
+            <th>Дата</th>
+            <th>Рабочий</th>
+            <th>Продукт</th>
+            <th>Количество</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody align="center">
+        {% for shift in shifts %}
+            <tr>
+                <td><a href="{{ path('shift_show', { 'id': shift.id }) }}">{{ shift.id }}</a></td>
+                <td>{% if shift.date %}{{ shift.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ shift.employees.name}} {{shift.employees.surname}}</td>
+                <td>{{ shift.products.name }}</td>
+                <td>{{ shift.quantity }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('shift_show', { 'id': shift.id }) }}">Просмотр</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('shift_edit', { 'id': shift.id }) }}">Обновить</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('shift_new') }}">Добавить</a>
+        </li>
+    </ul>
+{% endblock %}

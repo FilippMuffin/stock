@@ -1,25 +1,25 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: muffin
- * Date: 27.07.18
- * Time: 20:58
+ * User: sergey
+ * Date: 21.06.2018
+ * Time: 15:53
  */
 
 namespace AppBundle\Entity;
-
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
- * @ORM\Tabel(name = "users")
+ * @ORM\Table(name="users")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="integer", fieldName="type")
  * @ORM\DiscriminatorMap({
- *     1 = "Foreman",
- *     2 = "Employee",
+ *     1 = "Employee",
+ *     2 = "Foreman",
+ *     3 = "Admin"
  * })
  */
 abstract class User implements UserInterface
@@ -31,6 +31,45 @@ abstract class User implements UserInterface
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Email обязателен")
+     * @Assert\Email(message="Некорректный Email")
+     */
+    protected $email;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Введите должность")
+     */
+    protected $role;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Введите пароль")
+     * @Assert\Length(
+     *     min=8,
+     *     max=20,
+     *     minMessage="Ваш пароль должен быть как минимум {{ limit }} символов",
+     *     maxMessage="Ваш пароль не должен быть длиннее {{ limit }} символов"
+     * )
+     */
+    protected $password;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     *
+     * @Assert\NotBlank(message="Заполните поле")
+     */
+    protected $salt;
 
     /**
      * @var string
@@ -49,37 +88,6 @@ abstract class User implements UserInterface
     protected $surname;
 
     /**
-     * @var string
-     * @ORM\Column(type="string")
-     *
-     * @Assert\NotBlank(message="Введите должность")
-     */
-    protected $role;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string")
-     *
-     * @Assert\NotBlank(message="Email обязателен")
-     * @Assert\Email(message="Некорректный Email")
-     */
-    protected $email;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string")
-     *
-     * @Assert\NotBlank(message="Введите пароль")
-     * @Assert\Length(
-     *     min=8,
-     *     max=20,
-     *     minMessage="Ваш пароль должен быть как минимум {{ limit }} символов",
-     *     maxMessage="Ваш пароль не должен быть длиннее {{ limit }} символов"
-     * )
-     */
-    protected $password;
-
-    /**
      * @return int
      */
     public function getId()
@@ -93,6 +101,22 @@ abstract class User implements UserInterface
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRole()
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param string $role
+     */
+    public function setRole($role)
+    {
+        $this->role = $role;
     }
 
     /**
@@ -130,22 +154,6 @@ abstract class User implements UserInterface
     /**
      * @return string
      */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * @param string $role
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
-    }
-
-    /**
-     * @return string
-     */
     public function getEmail()
     {
         return $this->email;
@@ -175,6 +183,23 @@ abstract class User implements UserInterface
         $this->password = $password;
     }
 
+    /**
+     * @return string
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+     * @param string $salt
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    }
+
+
     public function getUsername()
     {
         return $this->getEmail();
@@ -184,4 +209,9 @@ abstract class User implements UserInterface
     {
         // TODO: Implement eraseCredentials() method.
     }
+
+    /*public function __toString()
+    {
+        return $this->email.', '.$this->role.', '.$this->password.', '.$this->salt.', '.$this->name.', '.$this->surname;
+    }*/
 }

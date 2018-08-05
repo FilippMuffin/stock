@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Пункт</h1>
+
+    <table bordercolor="blue" border="1">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ shift.id }}</td>
+        </tr>
+        <tr>
+            <th>Дата</th>
+            <td>{% if shift.date %}{{ shift.date|date('Y-m-d H:i:s') }}{% endif %}</td>
+        </tr>
+        <tr>
+            <th>Количество</th>
+            <td>{{ shift.quantity }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('shift_index') }}">Назад к списку</a>
+        </li>
+        <li>
+            <a href="{{ path('shift_edit', { 'id': shift.id }) }}">Обновить</a>
+        </li>
+        <li>
+            <a href="{{ path('shift_delete', { 'id': shift.id }) }}">Удалить</a>
+        </li>
+    </ul>
+{% endblock %}

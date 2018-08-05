@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: muffin
  * Date: 04.08.18
- * Time: 17:39
+ * Time: 17:52
  */
 
 namespace AppBundle\Entity;
@@ -12,11 +12,11 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * Class Foreman
+* Class Admin
  * @package AppBundle\Entity
- * @ORM\Entity()
- */
-class Foreman extends User
+* @ORM\Entity()
+*/
+class Admin extends User
 {
 
     /**
@@ -37,7 +37,6 @@ class Foreman extends User
      */
     public function getRoles()
     {
-        return ['SUPER_USER'];
+        return ['ADMIN'];
     }
-
 }

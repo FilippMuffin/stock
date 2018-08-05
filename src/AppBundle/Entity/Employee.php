@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: muffin
- * Date: 04.08.18
- * Time: 17:39
+ * Date: 01.08.18
+ * Time: 15:58
  */
 
 namespace AppBundle\Entity;
@@ -11,13 +11,45 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
- * Class Foreman
+ * Class Employee
  * @package AppBundle\Entity
  * @ORM\Entity()
  */
-class Foreman extends User
+class Employee extends User
 {
+    /**
+     * @var ArrayCollection|Shift[]
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Shift", mappedBy="employees")
+     */
+    protected $shifts;
+
+
+    public function __construct()
+    {
+        $this->shifts = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->name.', '.$this->surname;
+    }
+    /**
+     * @return Shift[]|ArrayCollection
+     */
+    public function getShifts()
+    {
+        return $this->shifts;
+    }
+
+    /**
+     * @param Shift[]|ArrayCollection $shifts
+     */
+    public function setShifts($shifts)
+    {
+        $this->shifts = $shifts;
+    }
 
     /**
      * Returns the roles granted to the user.
@@ -37,7 +69,7 @@ class Foreman extends User
      */
     public function getRoles()
     {
-        return ['SUPER_USER'];
+        return ['USER'];
     }
 
 }

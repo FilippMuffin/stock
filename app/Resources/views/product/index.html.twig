@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Список Продуктов</h1>
+
+    <table bordercolor="blue" border="1">
+        <thead align="center">
+        <tr>
+            <th>Id</th>
+            <th>Название</th>
+            <th>Количество</th>
+            <th>Вес/шт</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody align="center">
+        {% for product in products %}
+            <tr>
+                <td><a href="{{ path('product_show', { 'id': product.id }) }}">{{ product.id }}</a></td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.quantity }}</td>
+                <td>{{ product.weight }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('product_show', { 'id': product.id }) }}">Просмотр</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('product_edit', { 'id': product.id }) }}">Обновить</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('product_new') }}">Добавить новый продукт</a>
+        </li>
+    </ul>
+{% endblock %}
